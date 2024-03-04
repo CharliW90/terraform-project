@@ -1,6 +1,6 @@
 # Security groups to allow HTTP/HTTPS Ingress and Egress
 resource "aws_security_group" "allow_ingress" {
-  name   = "allow-http-in"
+  name   = "allow-ingress"
   vpc_id = var.vpc_id
 }
 
@@ -31,7 +31,7 @@ resource "aws_security_group_rule" "allow_https_in" {
 }
 
 resource "aws_security_group" "allow_egress" {
-  name   = "allow-http-out"
+  name   = "allow-egress"
   vpc_id = var.vpc_id
 }
 
@@ -66,6 +66,19 @@ resource "aws_security_group_rule" "allow_ssh" {
   protocol  = "tcp"
 
   cidr_blocks = ["${chomp(data.http.my_ip_address.response_body)}/32"]
+
+  security_group_id = aws_security_group.allow_ssh.id
+}
+
+resource "aws_security_group_rule" "allow_bastion_ssh" {
+  type = "ingress"
+
+  from_port = 22
+  to_port   = 22
+  protocol  = "tcp"
+  
+
+  self = true
 
   security_group_id = aws_security_group.allow_ssh.id
 }
