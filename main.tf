@@ -29,6 +29,7 @@ module "instances" {
   source = "./modules/servers"
   public_subnet_ids = module.vpc.public_subnets[*].id
   private_subnet_ids = module.vpc.private_subnets[*].id
-  security_groups = [module.security.security_group_ingress_id, module.security.security_group_egress_id]
+  public_security_groups = [module.security.security_group_ingress_id, module.security.security_group_egress_id, module.security.security_group_ssh_in_id]
+  private_security_groups = [module.security.security_group_egress_id, module.security.security_group_ssh_in_id]
   key_name = var.key_name
 }

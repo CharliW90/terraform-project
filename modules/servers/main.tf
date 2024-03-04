@@ -1,7 +1,7 @@
 resource "aws_instance" "lighting" {
   subnet_id = var.public_subnet_ids[0]
   instance_type = var.instance_type
-  vpc_security_group_ids = var.security_groups
+  vpc_security_group_ids = var.public_security_groups
   associate_public_ip_address = true
   key_name = var.key_name
   ami = var.ami == "ubuntu" ? data.aws_ami.ubuntu.id : var.ami
@@ -13,7 +13,7 @@ resource "aws_instance" "lighting" {
 resource "aws_instance" "heating" {
   subnet_id = var.public_subnet_ids[1]
   instance_type = var.instance_type
-  vpc_security_group_ids = var.security_groups
+  vpc_security_group_ids = var.public_security_groups
   associate_public_ip_address = true
   key_name = var.key_name
   ami = var.ami == "ubuntu" ? data.aws_ami.ubuntu.id : var.ami
@@ -25,7 +25,7 @@ resource "aws_instance" "heating" {
 resource "aws_instance" "status" {
   subnet_id = var.public_subnet_ids[2]
   instance_type = var.instance_type
-  vpc_security_group_ids = var.security_groups
+  vpc_security_group_ids = var.public_security_groups
   associate_public_ip_address = true
   key_name = var.key_name
   ami = var.ami == "ubuntu" ? data.aws_ami.ubuntu.id : var.ami
@@ -39,6 +39,7 @@ resource "aws_instance" "auth" {
   instance_type = var.instance_type
   key_name = var.key_name
   ami = var.ami == "ubuntu" ? data.aws_ami.ubuntu.id : var.ami
+  vpc_security_group_ids = var.private_security_groups
   tags = {
     Name = "auth-server"
   }
