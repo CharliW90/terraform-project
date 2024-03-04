@@ -13,3 +13,7 @@ variable "public_cidr_blocks" {
 variable "private_cidr_blocks" {
   type = list(string)
 }
+
+variable "key_name" {
+  type = string
+}
