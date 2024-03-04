@@ -24,3 +24,11 @@ module "heating_db" {
   hash_key = "id"
   hash_key_type = "N"
 }
+
+module "instances" {
+  source = "./modules/servers"
+  public_subnet_ids = module.vpc.public_subnets[*].id
+  private_subnet_ids = module.vpc.private_subnets[*].id
+  security_groups = [module.security.security_group_ingress_id, module.security.security_group_egress_id]
+  key_name = var.key_name
+}
