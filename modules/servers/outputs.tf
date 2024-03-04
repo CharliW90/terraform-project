@@ -16,9 +16,9 @@ output "auth_id" {
 
 output "ssh_login_details" {
   value = [
-    "ssh -i ~/.ssh/${aws_instance.lighting.key_name}.pem ubuntu@${aws_instance.lighting.public_dns}",
-    "ssh -i ~/.ssh/${aws_instance.heating.key_name}.pem ubuntu@${aws_instance.heating.public_dns}",
-    "ssh -i ~/.ssh/${aws_instance.status.key_name}.pem ubuntu@${aws_instance.status.public_dns}",
-    "ssh -i ~/.ssh/${aws_instance.auth.key_name}.pem ubuntu@${aws_instance.auth.private_dns}"
+    "lighting app: ssh -i ~/.ssh/${aws_instance.lighting.key_name}.pem ubuntu@${aws_instance.lighting.public_dns}",
+    "heating app: ssh -i ~/.ssh/${aws_instance.heating.key_name}.pem ubuntu@${aws_instance.heating.public_dns}",
+    "status app: ssh -i ~/.ssh/${aws_instance.status.key_name}.pem ubuntu@${aws_instance.status.public_dns}",
+    "auth app: ssh -i ~/.ssh/${aws_instance.auth.key_name}.pem ubuntu@${aws_instance.auth.private_dns}"
   ]
 }
