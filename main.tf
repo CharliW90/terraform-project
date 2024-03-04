@@ -10,3 +10,17 @@ module "security" {
   source = "./modules/security"
   vpc_id = module.vpc.vpc_id
 }
+
+module "lighting_db" {
+  source = "./modules/dynamo"
+  db_name = "lighting"
+  hash_key = "id"
+  hash_key_type = "N"
+}
+
+module "heating_db" {
+  source = "./modules/dynamo"
+  db_name = "heating"
+  hash_key = "id"
+  hash_key_type = "N"
+}
