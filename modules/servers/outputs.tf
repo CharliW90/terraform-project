@@ -3,7 +3,7 @@ output "lighting_id" {
 }
 
 output "heating_id" {
-  value = aws_instance.heating
+  value = aws_instance.heating.id
 }
 
 output "status_id" {
