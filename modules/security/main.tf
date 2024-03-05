@@ -30,6 +30,19 @@ resource "aws_security_group_rule" "allow_https_in" {
   security_group_id = aws_security_group.allow_ingress.id
 }
 
+resource "aws_security_group_rule" "allow_port_3000" {
+  type = "ingress"
+
+  from_port = 3000
+  to_port = 3000
+  protocol = "tcp"
+
+  cidr_blocks = ["0.0.0.0/0"]
+  ipv6_cidr_blocks = ["::/0"]
+
+  security_group_id = aws_security_group.allow_ingress.id
+}
+
 resource "aws_security_group" "allow_egress" {
   name   = "allow-egress"
   vpc_id = var.vpc_id
@@ -81,4 +94,22 @@ resource "aws_security_group_rule" "allow_bastion_ssh" {
   self = true
 
   security_group_id = aws_security_group.allow_ssh.id
+}
+
+resource "aws_security_group" "allow_internal_ingress" {
+  name   = "allow-internal-ingress"
+  vpc_id = var.vpc_id
+}
+
+resource "aws_security_group_rule" "allow_internal_port_3000" {
+  type = "ingress"
+
+  from_port = 3000
+  to_port   = 3000
+  protocol  = "tcp"
+  
+
+  self = true
+
+  security_group_id = aws_security_group.allow_internal_ingress.id
 }
