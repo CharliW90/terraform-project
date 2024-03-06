@@ -18,7 +18,22 @@ variable "key_name" {
   type = string
 }
 
-variable "ami" {
+variable "lighting_ami" {
+  type = string
+  default = "ubuntu"
+}
+
+variable "heating_ami" {
+  type = string
+  default = "ubuntu"
+}
+
+variable "status_ami" {
+  type = string
+  default = "ubuntu"
+}
+
+variable "auth_ami" {
   type = string
   default = "ubuntu"
 }

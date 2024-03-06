@@ -41,10 +41,10 @@ variable "subnets" {
   type = list(string)
 }
 
-variable "listen_port" {
-  type = number
-}
-
 variable "listen_protocol" {
   type = string
+}
+
+variable "listen_port" {
+  type = number
 }

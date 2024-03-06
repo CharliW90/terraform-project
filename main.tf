@@ -30,9 +30,14 @@ module "instances" {
   source = "./modules/servers"
   public_subnet_ids = module.vpc.public_subnets[*].id
   private_subnet_ids = module.vpc.private_subnets[*].id
-  public_security_groups = [module.security.security_group_ingress_id, module.security.security_group_egress_id, module.security.security_group_ssh_in_id, module.security.security_group_internal_port]
+  public_security_groups =  [module.security.security_group_egress_id, module.security.security_group_ssh_in_id, module.security.security_group_internal_port, module.security.security_group_ingress_id]
   private_security_groups = [module.security.security_group_egress_id, module.security.security_group_ssh_in_id, module.security.security_group_internal_port]
   key_name = var.key_name
+  instance_type = var.instance_type
+  lighting_ami = var.lighting_ami
+  heating_ami = var.heating_ami
+  status_ami = var.status_ami
+  auth_ami = var.auth_ami
 }
 
 module "external_load_balancer" {
@@ -44,7 +49,7 @@ module "external_load_balancer" {
   target_port = 3000
   target_protocol = "HTTP"
   target_protocol_version = "HTTP1"
-  security_groups = [module.security.security_group_ingress_id, module.security.security_group_egress_id]
+  security_groups = [module.security.security_group_internal_port, module.security.security_group_egress_id, module.security.security_group_ingress_id]
   subnets = module.vpc.public_subnets[*].id
   listen_port = 80
   listen_protocol = "HTTP"
@@ -64,7 +69,7 @@ module "internal_load_balancer" {
   target_port = 3000
   target_protocol = "HTTP"
   target_protocol_version = "HTTP1"
-  security_groups = [module.security.security_group_egress_id, module.security.security_group_internal_port]
+  security_groups = [module.security.security_group_internal_port, module.security.security_group_egress_id]
   subnets = module.vpc.private_subnets[*].id
   listen_port = 80
   listen_protocol = "HTTP"
