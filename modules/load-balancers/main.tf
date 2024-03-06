@@ -9,6 +9,9 @@ resource "aws_lb_target_group" "target" {
     path = "/api/${var.instances[count.index].api_path}${var.instances[count.index].public ? "/health" : ""}"
     protocol = "HTTP"
   }
+  tags = {
+    "app" = "${var.instances[count.index].api_path}"
+  }
 }
 
 resource "aws_lb_listener_rule" "app_rule" {

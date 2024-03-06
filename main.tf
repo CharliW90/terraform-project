@@ -75,3 +75,26 @@ module "internal_load_balancer" {
   listen_protocol = "HTTP"
   instances = [{id="${module.instances.auth_id}",public=false,api_path="auth"}]
 }
+
+resource "local_file" "status_app_local_env" {
+  filename = "./modules/autoscaling/.env.local"
+  content = "LIGHTS_SERVICE=${module.internal_load_balancer.dns}\nHEATING_SERVICE=${module.internal_load_balancer.dns}\nAUTH_SERVICE=${module.internal_load_balancer.dns}"
+}
+
+module "autoscaler" {
+  depends_on = [ module.external_load_balancer, module.internal_load_balancer ]
+  source = "./modules/autoscaling"
+  min_size = 2
+  max_size = 9
+  desired_size = 3
+  zone_identifiers = var.availability_zones
+  public_subnets = module.vpc.public_subnets[*].id
+  private_subnets = module.vpc.private_subnets[*].id
+  instances = [
+    {id=module.instances.lighting_id,app="lights"}, 
+    {id=module.instances.heating_id,app="heating"}, 
+    {id=module.instances.status_id,app="status"},
+    {id=module.instances.auth_id,app="auth"}
+  ]
+  public_security_groups = [module.security.security_group_egress_id, module.security.security_group_ingress_id, module.security.security_group_internal_port, module.security.security_group_ssh_in_id]
+}

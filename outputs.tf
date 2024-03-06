@@ -3,9 +3,13 @@ output "logins" {
 }
 
 output "public_load_balancer_url" {
-  value = module.external_load_balancer.lb_dns
+  value = module.external_load_balancer.dns
 }
 
 output "private_load_balancer_url" {
-  value = module.internal_load_balancer.lb_dns
+  value = module.internal_load_balancer.dns
+}
+
+output "console_log" {
+  value = module.autoscaler.console_log
 }

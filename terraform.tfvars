@@ -5,7 +5,7 @@ public_cidr_blocks = [ "10.0.101.0/24", "10.0.102.0/24", "10.0.103.0/24" ]
 private_cidr_blocks = [ "10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24" ]
 key_name = "project-key"
 
-lighting_ami = "ami-019e5d8a0d6f44c75"
-heating_ami = "ami-0eb7e8f50cc7a8f56"
-status_ami = "ami-02690a7d2a37ec16b"
-auth_ami = "ami-057091ae288dc4538"
+lighting_ami = "ami-01d1b4f3b7868a9a1"
+heating_ami = "ami-0b94d8d1034624e9d"
+status_ami = "ami-0ef7279182926d5b7"
+auth_ami = "ami-0b136ecd29b3c78a3"
