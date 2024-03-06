@@ -2,6 +2,11 @@ variable "project_name" {
   type = string
 }
 
+variable "instance_type" {
+  type = string
+  default = "t2.micro"
+}
+
 variable "availability_zones" {
   type = list(string)
 }
@@ -19,5 +24,21 @@ variable "private_cidr_blocks" {
 }
 
 variable "key_name" {
+  type = string
+}
+
+variable "lighting_ami" {
+  type = string
+}
+
+variable "heating_ami" {
+  type = string
+}
+
+variable "status_ami" {
+  type = string
+}
+
+variable "auth_ami" {
   type = string
 }

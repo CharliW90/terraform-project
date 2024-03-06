@@ -113,3 +113,16 @@ resource "aws_security_group_rule" "allow_internal_port_3000" {
 
   security_group_id = aws_security_group.allow_internal_ingress.id
 }
+
+resource "aws_security_group_rule" "allow_internal_port_80" {
+  type = "ingress"
+
+  from_port = 80
+  to_port   = 80
+  protocol  = "tcp"
+  
+
+  self = true
+
+  security_group_id = aws_security_group.allow_internal_ingress.id
+}
