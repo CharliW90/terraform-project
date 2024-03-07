@@ -35,19 +35,18 @@ resource "aws_autoscaling_group" "autoscaler" {
 resource "aws_launch_template" "instance_apps" {
   depends_on = [ data.aws_instance.app-server ]
   count = length(data.aws_instance.app-server[*])
-  name = "${data.aws_instance.app-server[count.index].tags.Name}-asg"
+  name = "${data.aws_instance.app-server[count.index].tags.Name}-asg-t"
   instance_type = data.aws_instance.app-server[count.index].instance_type
   image_id = data.aws_instance.app-server[count.index].ami
   key_name = data.aws_instance.app-server[count.index].key_name
-  user_data = data.aws_instance.app-server[count.index].tags.Name == "status" ? file("./.env.local") : ""
   network_interfaces {
     associate_public_ip_address = data.aws_instance.app-server[count.index].associate_public_ip_address
-    security_groups = data.aws_instance.app-server[count.index].security_groups
+    security_groups = data.aws_instance.app-server[count.index].associate_public_ip_address ? var.public_security_groups : var.private_security_groups
   }
   tag_specifications {
     resource_type = "instance"
     tags = {
-      Name = data.aws_instance.app-server[count.index].tags.Name
+      Name = "${data.aws_instance.app-server[count.index].tags.Name}-asg"
     }
   }
 }

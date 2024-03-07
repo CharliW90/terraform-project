@@ -32,3 +32,7 @@ variable "private_subnets" {
 variable "public_security_groups" {
   type = list(string)
 }
+
+variable "private_security_groups" {
+  type = list(string)
+}
