@@ -22,3 +22,7 @@ output "ssh_login_details" {
     "auth app: ssh -i ~/.ssh/${aws_instance.auth.key_name}.pem ubuntu@${aws_instance.auth.private_dns}"
   ]
 }
+
+output "status_app_dns" {
+  value = aws_instance.status.public_dns
+}

@@ -1,7 +1,7 @@
-output "public_lb_id" {
+output "id" {
   value = aws_lb.load_balancer.id
 }
 
-output "lb_dns" {
+output "dns" {
   value = aws_lb.load_balancer.dns_name
 }
