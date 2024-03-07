@@ -5,6 +5,9 @@ public_cidr_blocks = [ "10.0.101.0/24", "10.0.102.0/24", "10.0.103.0/24" ]
 private_cidr_blocks = [ "10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24" ]
 key_name = "project-key"
 
+load_balancer_target_port = 3000
+load_balancer_listen_port = 80
+
 lighting_ami = "ami-01d1b4f3b7868a9a1"
 heating_ami = "ami-0b94d8d1034624e9d"
 auth_ami = "ami-0b136ecd29b3c78a3"

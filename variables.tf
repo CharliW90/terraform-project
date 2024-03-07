@@ -42,3 +42,11 @@ variable "status_ami" {
 variable "auth_ami" {
   type = string
 }
+
+variable "load_balancer_target_port" {
+  type = number
+}
+
+variable "load_balancer_listen_port" {
+  type = number
+}
