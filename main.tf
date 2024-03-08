@@ -26,6 +26,13 @@ module "heating_db" {
   hash_key_type = "N"
 }
 
+module "auth_db" {
+  source = "./modules/dynamo"
+  db_name = "authorisedUsers"
+  hash_key = "id"
+  hash_key_type = "N"
+}
+
 module "instances" {
   source = "./modules/servers"
   public_subnet_ids = module.vpc.public_subnets[*].id
